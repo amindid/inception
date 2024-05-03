@@ -35,13 +35,13 @@ A dockerfile is a text document that contains instructions for building a docker
 
 here are some of the most commonly used commands in a dockerfile :
 
-FROM: syntax(FROM <image>:<tag>); command that specifies the base image from which you are building. it is the starting point of your dockerfile.
-RUN: syntax(RUN <command>); executes commands during the docker image built process, these commands typically install packages, update repositories, configure the environment, or perform other tasks necessary to set up the application environment within the image.
-COPY: syntax(COPY <src> <dest>); copies files or directories from the host machine into the container's filesystem.
-ADD: syntax(ADD <src> <dest>); to the same as COPY + supports URLs and can automatically unpack compressed files.
-WORKDIR: syntax(WORKDIR <path>); this sets the working directory for any RUN,CMD,ENTRYPOINT,COPY,and ADD instructions that follow it in the dockerfile.
-ENV: syntax(ENV <key> <value>); sets environment variables in the container.
-EXPOSE: syntax(EXPOSE <port>); this command informs docker that the container listens on the specified network ports at runtime. it does not actually make the ports accessible from outside the container.
-CMD: syntax(CMD ["executable", "param1", "param2"]); specifies the default command to run when the container starts, there  can only be one CMD instruction in a dockerfile, if multiple CMD instructions are provided, only the last one will take effect.
-ENTRYPOINT: syntax(ENTRYPOINT ["executable", "param1", "param2"]); specifies the executable that should be run when the container starts.
-VOLUME: syntax(VOLUME <path>); This command creates a mount point with the specified name and marks it as externally mounted.
+1. FROM: syntax(FROM image:tag); command that specifies the base image from which you are building. it is the starting point of your dockerfile.
+2. RUN: syntax(RUN command); executes commands during the docker image built process, these commands typically install packages, update repositories, configure the environment, or perform other tasks necessary to set up the application environment within the image.
+3. COPY: syntax(COPY src dest); copies files or directories from the host machine into the container's filesystem.
+4. ADD: syntax(ADD src dest); to the same as COPY + supports URLs and can automatically unpack compressed files.
+5. WORKDIR: syntax(WORKDIR path); this sets the working directory for any RUN,CMD,ENTRYPOINT,COPY,and ADD instructions that follow it in the dockerfile.
+6. ENV: syntax(ENV key value); sets environment variables in the container.
+7. EXPOSE: syntax(EXPOSE port); this command informs docker that the container listens on the specified network ports at runtime. it does not actually make the ports accessible from outside the container.
+8. CMD: syntax(CMD ["executable", "param1", "param2"]); specifies the default command to run when the container starts, there  can only be one CMD instruction in a dockerfile, if multiple CMD instructions are provided, only the last one will take effect.
+9. ENTRYPOINT: syntax(ENTRYPOINT ["executable", "param1", "param2"]); specifies the executable that should be run when the container starts.
+10. VOLUME: syntax(VOLUME path); This command creates a mount point with the specified name and marks it as externally mounted.
