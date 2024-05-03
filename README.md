@@ -7,11 +7,12 @@ Docker is a popular platform that simplifies the process of creating, deploying,
 - what is Docker Engine ?
 
 Docker Engine is the software responsible for creating and managing containers, providing a consistent and reliable platform for developing, shipping, and running applications. it consists of several parts :
-    1. DOCKER DAEMON (dockerd): This is a persistent process that manages Docker objects, such as images, containers, networks, and volumes.
-    2. DOCKER CLIENT (docker): This is the primary interface that users interact with to communicate with the Docker daemon.
-    3. REST API: Docker Engine provides a RESTful API that allows external programs to communicate with the Docker daemon.
-    4. COMMAND-LINE INTERFACE (CLI): The Docker CLI provides a set of commands that users can run in their terminal to interact with Docker Engine.
-    5. CONTAINERD AND OTHER COMPONENTS: Docker Engine also includes other components like Containerd, which is responsible for container execution and supervision, and other libraries and dependencies necessary for its operation.
+
+1. DOCKER DAEMON (dockerd): This is a persistent process that manages Docker objects, such as images, containers, networks, and volumes.
+2. DOCKER CLIENT (docker): This is the primary interface that users interact with to communicate with the Docker daemon.
+3. REST API: Docker Engine provides a RESTful API that allows external programs to communicate with the Docker daemon.
+4. COMMAND-LINE INTERFACE (CLI): The Docker CLI provides a set of commands that users can run in their terminal to interact with Docker Engine.
+5. CONTAINERD AND OTHER COMPONENTS: Docker Engine also includes other components like Containerd, which is responsible for container execution and supervision, and other libraries and dependencies necessary for its operation.
 
 - what is image ?
 
