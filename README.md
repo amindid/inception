@@ -42,6 +42,8 @@ here are some of the most commonly used commands in a dockerfile :
 5. WORKDIR: syntax(WORKDIR path); this sets the working directory for any RUN,CMD,ENTRYPOINT,COPY,and ADD instructions that follow it in the dockerfile.
 6. ENV: syntax(ENV key value); sets environment variables in the container.
 7. EXPOSE: syntax(EXPOSE port); this command informs docker that the container listens on the specified network ports at runtime. it does not actually make the ports accessible from outside the container.
-8. CMD: syntax(CMD ["executable", "param1", "param2"]); specifies the default command to run when the container starts, there  can only be one CMD instruction in a dockerfile, if multiple CMD instructions are provided, only the last one will take effect.
-9. ENTRYPOINT: syntax(ENTRYPOINT ["executable", "param1", "param2"]); specifies the executable that should be run when the container starts.
+8. CMD: syntax(CMD command || CMD ["executable", "param1", "param2"]); specifies the default command to run when the container starts, there can only be one CMD instruction in a dockerfile, if multiple CMD instructions are provided, only the last one will take effect, it can be overridden from the docker command line interface (CLI) while running the container.
+9. ENTRYPOINT: syntax(ENTRYPOINT command || ENTRYPOINT ["executable", "param1", "param2"]); specifies the executable that should be run when the container starts. it cannot be overriden while executing docker containers with CLI parameters.
 10. VOLUME: syntax(VOLUME path); This command creates a mount point with the specified name and marks it as externally mounted.
+
+for more explanation about how CMD and ENTRYPOINT works and the differences between them, go to "https://devtron.ai/blog/cmd-and-entrypoint-differences/" .
