@@ -28,3 +28,20 @@ NATURE: An image is a static, immutable file that serves as a blueprint for cont
 STATE: Images are read-only and immutable, while containers are writable and can store changes made during runtime (unless using techniques like Docker commit to create a new image from a container).
 LIFECYCLE: Images persist between runs and can be used to create multiple containers, while containers are transient and exist only while they are running.
 USAGE: Images are used to package and distribute applications, while containers are used to run and manage those applications in isolated environments.
+
+- what is Dockerfile ?
+
+A dockerfile is a text document that contains instructions for building a docker image. These instructions typically include commands for copying files into the image , installing dependencies, setting environment variables, and specifying the commands to run when the container is started.
+
+here are some of the most commonly used commands in a dockerfile :
+
+FROM: syntax(FROM <image>:<tag>); command that specifies the base image from which you are building. it is the starting point of your dockerfile.
+RUN: syntax(RUN <command>); executes commands during the docker image built process, these commands typically install packages, update repositories, configure the environment, or perform other tasks necessary to set up the application environment within the image.
+COPY: syntax(COPY <src> <dest>); copies files or directories from the host machine into the container's filesystem.
+ADD: syntax(ADD <src> <dest>); to the same as COPY + supports URLs and can automatically unpack compressed files.
+WORKDIR: syntax(WORKDIR <path>); this sets the working directory for any RUN,CMD,ENTRYPOINT,COPY,and ADD instructions that follow it in the dockerfile.
+ENV: syntax(ENV <key> <value>); sets environment variables in the container.
+EXPOSE: syntax(EXPOSE <port>); this command informs docker that the container listens on the specified network ports at runtime. it does not actually make the ports accessible from outside the container.
+CMD: syntax(CMD ["executable", "param1", "param2"]); specifies the default command to run when the container starts, there  can only be one CMD instruction in a dockerfile, if multiple CMD instructions are provided, only the last one will take effect.
+ENTRYPOINT: syntax(ENTRYPOINT ["executable", "param1", "param2"]); specifies the executable that should be run when the container starts.
+VOLUME: syntax(VOLUME <path>); This command creates a mount point with the specified name and marks it as externally mounted.
