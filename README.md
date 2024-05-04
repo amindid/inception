@@ -61,3 +61,17 @@ here are some of the most commonly used commands in a dockerfile :
 10. VOLUME: syntax(VOLUME path); This command creates a mount point with the specified name and marks it as externally mounted.
 
 for more explanation about how CMD and ENTRYPOINT works and the differences between them, go to "https://devtron.ai/blog/cmd-and-entrypoint-differences/" .
+
+- what is NGINX ?
+
+NGINX is a popular open-source web server software known for its hogh performance, stability, and scalability. it's often used as a front-end web server or proxy server, sitting between clients and backend application servers. NGINX is commonly used to improve the performance and reliability of websites and web applications by efficiently distributing incoming web traffic and handling requests in an optimized manner.
+
+- what is openssl ?
+
+OpenSSL is a widely-used open-source toolkit implementing the Secure Sockets Layer (SSL) and Transport Layer Security (TLS) protocols, along with general-purpose cryptography functions. It provides libraries and command-line tools for secure communication over computer networks. it provides libraries and APIs for developers to integrate SSL/TLS functionality into their applications. This enables secure communication channels for protocols like HTTPS, FTPS, SMTPS, and many others.
+
+- what is TLS protocol ?
+
+TLS is a cryptographic protocol designed to provide secure communication over a computer network. It ensures privacy, data integrity, and authentication between communicating applications. TLS is the successor to the older Secure Sockets Layer (SSL) protocol.
+
+ssl is part of the TLS protocol and it have 2 main goals, first is encrypting the connection and the second is validating trust between the client and the server.
