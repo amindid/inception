@@ -7,16 +7,18 @@ RUN apk update && apk add --no-cache nginx openssl
 RUN mkdir -p /run/nginx
 
 #remove nginx default configurations
-# RUN rm /etc/nginx/conf.d/*
+RUN rm -f /etc/nginx/conf.d/*
 
 #copy nginx configuration file
-# COPY mynginx.conf /etc/nginx/nginx.conf
+COPY mynginx.conf /etc/nginx/nginx.conf
 
 #copy ssl certificate to nginx certs folder
 COPY certificate.pem /etc/nginx/certs/server.crt
 
 #copy ssl private key to nginx private folder
 COPY private-key.pem /etc/nginx/private/server.key
+
+#CMD /usr/sbin/nginx
 
 #expose port
 EXPOSE 443
