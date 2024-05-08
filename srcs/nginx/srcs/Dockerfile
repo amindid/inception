@@ -13,12 +13,12 @@ RUN rm -f /etc/nginx/conf.d/*
 COPY mynginx.conf /etc/nginx/nginx.conf
 
 #copy ssl certificate to nginx certs folder
-COPY certificate.pem /etc/nginx/certs/server.crt
+COPY certificate.pem /etc/nginx/certs/server.pem
 
 #copy ssl private key to nginx private folder
-COPY private-key.pem /etc/nginx/private/server.key
+COPY private-key.pem /etc/nginx/private/server.pem
 
-#CMD /usr/sbin/nginx
+CMD ["nginx", "-g", "daemon off;"]
 
 #expose port
 EXPOSE 443

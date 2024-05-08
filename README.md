@@ -72,8 +72,12 @@ NGINX is a popular open-source web server software known for its hogh performanc
 
 OpenSSL is a widely-used open-source toolkit implementing the Secure Sockets Layer (SSL) and Transport Layer Security (TLS) protocols, along with general-purpose cryptography functions. It provides libraries and command-line tools for secure communication over computer networks. it provides libraries and APIs for developers to integrate SSL/TLS functionality into their applications. This enables secure communication channels for protocols like HTTPS, FTPS, SMTPS, and many others.
 
-- what is TLS protocol ?
+- what is SSL (Secure Sockets Layer) TLS (Transport Layer Security) protocols ?
 
-TLS is a cryptographic protocol designed to provide secure communication over a computer network. It ensures privacy, data integrity, and authentication between communicating applications. TLS is the successor to the older Secure Sockets Layer (SSL) protocol.
+SSL and its successor TLS are cryptographic protocols used to secure communication over a computer network, most commonly the internet. They provide privacy, data integrity, and authentication between two communicating applications. SSL/TLS works by encrypting data transmitted between a client (such as a web browser) and a server (such as a website). This encryption ensures that even if intercepted, the data remains private and secure.
 
-ssl is part of the TLS protocol and it have 2 main goals, first is encrypting the connection and the second is validating trust between the client and the server.
+to generate a self-signed ssl certeficate using Openssl :
+
+1. openssl genrsa -out file.key 2048 : this command generates a 2048-bit RSA(Rivest-Shamir-Adleman : names of the inventors of the RSA encryption) private key and saves it in the file.key.
+2. openssl req -new -key file.key -out file.csr : this command is used to generate a CSR (Certificate Signing Request).
+3. openssl x509 -req -days 365 -in file.csr -signkey file.key -out file.crt : This command generates a self-signed certificate valid for 365 days using the CSR and private key previously generated. The certificate is saved in a file named file.crt.
