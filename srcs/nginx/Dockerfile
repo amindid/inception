@@ -21,4 +21,4 @@ COPY private-key.pem /etc/nginx/private/server.pem
 CMD ["nginx", "-g", "daemon off;"]
 
 #expose port
-EXPOSE 443
+EXPOSE 443 80

@@ -1,13 +1,17 @@
-.PHONY: all up down create-volumes
+.PHONY: all setup up down clean
 
-all: up create-volumes
+all: setup up
+
+setup:
+	@docker volume create wordpress
+	@docker volume create db_data
 
 up:
-	docker-compose up -d
+	@docker-compose up -d --build
 
 down:
-	docker-compose down
+	@docker-compose down
 
-create-volumes:
-	docker volume create --name=wordpress_data
-	docker volume create --name=db_data
+clean:
+	@docker-compose down -v
+	@docker volume rm wordpress db_data
