@@ -1,46 +1,52 @@
-version: '3'
+version: '3.3'
 
 services:
   nginx:
-    #image: nginx:latest
+    container_name: nginx
+    depends_on:
+      - wordpress
+    image: nginx
     build:
       context: ./srcs/nginx
       dockerfile: Dockerfile
     ports:
-      - "80:80"
-    volumes:
-      - ./srcs/nginx/mynginx.conf:/etc/nginx/nginx.conf:ro
+      - "443:443"
     networks:
       - inception
 
   wordpress:
     image: wordpress:latest
-    environment:
-      WORDPRESS_DB_HOST: inception_db
-      WORDPRESS_DB_USER: wordpress
-      WORDPRESS_DB_PASSWORD: example
-      WORDPRESS_DB_NAME: wordpress
+    container_name: wordpress
+    depends_on:
+      - mariadb
+    # build:
+    #   context: ./srcs/wordpress
+    #   dockerfile: Dockerfile
+    env_file:
+      - ./.env
     volumes:
-      - wordpress:/var/www/html
+      - wordpress_html:/var/www/html
     networks:
       - inception
 
-  inception_db:
-    image: mariadb:latest
-    environment:
-      MYSQL_DATABASE: wordpress
-      MYSQL_USER: wordpress
-      MYSQL_PASSWORD: example
-      MYSQL_ROOT_PASSWORD: example
+  mariadb:
+    image: mariadb
+    container_name: mariadb
+    # build:
+    #   context: ./srcs/mariadb
+    #   dockerfile: Dockerfile
+    env_file:
+      - ./.env
     volumes:
-      - db_data:/var/lib/mysql
+      - wordpress_db:/var/lib/mysql
     networks:
       - inception
 
 networks:
   inception:
+    name: inception
     driver: bridge
 
 volumes:
-  wordpress:
-  db_data:
+  wordpress_db:
+  wordpress_html:
