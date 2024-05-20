@@ -32,15 +32,17 @@ services:
   mariadb:
     image: mariadb
     container_name: mariadb
-    build:
-      context: ./srcs/mariadb
-      dockerfile: Dockerfile
+    # build:
+    #   context: ./srcs/mariadb
+    #   dockerfile: Dockerfile
     env_file:
       - ./.env
     volumes:
       - wordpress_db:/var/lib/mysql
     networks:
       - inception
+    # ports:
+    #   - "8080"
 
 networks:
   inception:
