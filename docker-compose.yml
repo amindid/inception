@@ -25,20 +25,20 @@ services:
     env_file:
       - ./.env
     volumes:
-      - wordpress_html:/var/www/html
+      - /home/aouchaad/data/wordpress_html:/var/www/html
     networks:
       - inception
 
   mariadb:
     image: mariadb
     container_name: mariadb
-    # build:
-    #   context: ./srcs/mariadb
-    #   dockerfile: Dockerfile
+    build:
+      context: ./srcs/mariadb
+      dockerfile: Dockerfile
     env_file:
       - ./.env
     volumes:
-      - wordpress_db:/var/lib/mysql
+      - /home/aouchaad/data/wordpress_db:/var/lib/mysql
     networks:
       - inception
     # ports:
@@ -51,4 +51,6 @@ networks:
 
 volumes:
   wordpress_db:
+    name: wordpress_db
   wordpress_html:
+    name: wordpress_html
