@@ -1,7 +1,7 @@
-FROM alpine:3.18
+FROM debian:12.5
 
 #install nginx and openssl
-RUN apk update && apk add --no-cache nginx openssl
+RUN apt-get update && apt-get install -y nginx openssl
 
 #creat derectory for nginx
 RUN mkdir -p /run/nginx
