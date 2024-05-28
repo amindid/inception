@@ -14,12 +14,11 @@ COPY init_db.sh /home
 
 RUN chmod +x /home/init_db.sh
 
-# ENTRYPOINT ["sh", "/home/init_db.sh"]
+ENTRYPOINT ["sh", "/home/init_db.sh"]
 
 EXPOSE 3306
 
-CMD ["yes"]
-# CMD ["mariadbd", "--user=mysql"]
+CMD ["mysqld", "-uroot"]
 
 
 # FROM alpine:3.18
