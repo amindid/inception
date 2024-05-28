@@ -1,16 +1,22 @@
 #!/bin/bash
 
-echo "FLUSH PRIVILEGES;" | mariadbd -u root --bootstrap
+echo "FLUSH PRIVILEGES;" > test.sql
+echo "CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE;" >> test.sql
 
-echo "CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE;" | mariadbd -u root --bootstrap
+# 2024-05-24 17:20:29 0 [Warning] You need to use --log-bin to make --expire-logs-days or --binlog-expire-logs-seconds work.
 
-echo "CREATE USER IF NOT EXISTS '$MYSQL_USER'@'localhost' IDENTIFIED BY '$MYSQL_PASSWORD';" | mariadbd -u root --bootstrap
+echo "CREATE USER IF NOT EXISTS '$MYSQL_USER'@'localhost' IDENTIFIED BY '$MYSQL_PASSWORD';" >> test.sql
 
-echo "GRANT ALL PRIVILEGES ON $MYSQL_DATABASE.* TO '$MYSQL_USER'@'localhost';" | mariadbd -u root --bootstrap
+echo "GRANT ALL PRIVILEGES ON $MYSQL_DATABASE.* TO '$MYSQL_USER'@'localhost';" >> test.sql
 
-echo "FLUSH PRIVILEGES;" | mariadbd -u root --bootstrap
+echo "FLUSH PRIVILEGES;" >> test.sql
 
-exec $@
+mariadbd -u root --bootstrap < test.sql
+
+
+# rm test.sql
+
+exec "$@"
 # -- Create WordPress database if not exists
 # CREATE DATABASE IF NOT EXISTS wordpress;
 
