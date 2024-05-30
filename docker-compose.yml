@@ -1,33 +1,4 @@
-version: '3.3'
-
 services:
-  nginx:
-    container_name: nginx:1337
-    depends_on:
-      - wordpress
-    image: nginx
-    build:
-      context: ./srcs/nginx
-      dockerfile: Dockerfile
-    ports:
-      - "443:443"
-    networks:
-      - inception
-
-  wordpress:
-    image: wordpress:latest
-    container_name: wordpress
-    depends_on:
-      - mariadb
-    # build:
-    #   context: ./srcs/wordpress
-    #   dockerfile: Dockerfile
-    env_file:
-      - ./.env
-    volumes:
-      - /home/aouchaad/data/wordpress_html:/var/www/html
-    networks:
-      - inception
 
   mariadb:
     image: mariadb:1337
@@ -38,11 +9,43 @@ services:
     env_file:
       - ./.env
     volumes:
-      - /home/aouchaad/data/wordpress_db:/var/lib/mysql
+      - mariadb:/var/lib/mysql
     networks:
       - inception
-    # ports:
-    #   - "8080"
+
+  wordpress:
+    image: wordpress:1337
+    container_name: wordpress
+    depends_on:
+      - mariadb
+    build:
+      context: ./srcs/wordpress
+      dockerfile: Dockerfile
+    env_file:
+      - ./.env
+    volumes:
+      - wordpress:/var/www/html/wordpress
+    networks:
+      - inception
+
+  nginx:
+    image: nginx:1337
+    container_name: nginx
+    depends_on:
+      - wordpress
+    volumes:
+      - wordpress:/var/www/html/wordpress
+    build:
+      context: ./srcs/nginx
+      dockerfile: Dockerfile
+    ports:
+      - "443:443"
+    networks:
+      - inception
+
+  
+
+
 
 networks:
   inception:
@@ -50,7 +53,146 @@ networks:
     driver: bridge
 
 volumes:
-  wordpress_db:
-    name: wordpress_db
-  wordpress_html:
-    name: wordpress_html
+  mariadb:
+    name: mariadb
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: $HOME/data/mariadb/
+  wordpress:
+    name: wordpress
+    driver_opts:
+      type: none
+      o : bind
+      device : $HOME/data/wordpress/
+
+
+# services:
+
+#   mariadb:
+#     build: ./srcs/mariadb/.
+#     container_name: mariadb
+#     image: mariadb
+#     volumes:
+#       - mariadb:/var/lib/mysql
+#     restart: always
+#     networks:
+#       - inception
+#     env_file:
+#       - .env
+  
+#   wordpress:
+#     build: ./srcs/wordpress/.
+#     container_name: wordpress
+#     image: wordpress
+#     volumes:
+#       - wordpress:/var/www/html/wordpress
+#     depends_on:
+#       - mariadb
+#     networks:
+#       - inception
+#     restart: always
+#     env_file:
+#       - .env
+  
+#   nginx:
+#     build: ./srcs/nginx/.
+#     container_name: nginx
+#     image: nginx
+#     ports:
+#       - "443:443"
+#     volumes:
+#       - wordpress:/var/www/html/wordpress
+#     depends_on:
+#       - wordpress
+#     restart: always
+#     networks:
+#       - inception
+
+
+# networks:
+#   inception:
+#     driver: bridge
+
+# volumes:
+#   mariadb:
+#     driver: local
+#     driver_opts:
+#       type: none
+#       o: bind
+#       device: /home/aouchaad/data/wordpress_db/
+#   wordpress:
+#     driver_opts:
+#       type: none
+#       o : bind
+#       device : /home/aouchaad/data/wordpress_html/
+
+
+
+
+
+
+
+# services:
+
+#   mariadb:
+#     build: srcs/mariadb/.
+#     container_name: mariadb
+#     image: mariadb:1337
+#     volumes:
+#       - mariadb:/var/lib/mysql
+#     restart: always
+#     networks:
+#       - inception
+#     env_file:
+#       - .env
+  
+#   wordpress:
+#     build: srcs/wordpress/.
+#     container_name: wordpress
+#     image: wordpress:1337
+#     volumes:
+#       - wordpress:/var/www/html/wordpress
+#     depends_on:
+#       - mariadb
+#     networks:
+#       - inception
+#     restart: always
+#     env_file:
+#       - .env
+  
+#   nginx:
+#     build: srcs/nginx/.
+#     container_name: nginx
+#     image: nginx:1337
+#     ports:
+#       - "443:443"
+#     volumes:
+#       - wordpress:/var/www/html/wordpress
+#     depends_on:
+#       - wordpress
+#     restart: always
+#     networks:
+#       - inception
+
+
+# networks:
+#   inception:
+#     name: inception
+#     driver: bridge
+
+# volumes:
+#   mariadb:
+#     name: mariadb
+#     driver: local
+#     driver_opts:
+#       type: none
+#       o: bind
+#       device: ./data/mariadb/
+#   wordpress:
+#     name: wordpress
+#     driver_opts:
+#       type: none
+#       o : bind
+#       device : ./data/wordpress/

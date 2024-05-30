@@ -3,9 +3,7 @@
 all: setup up
 
 setup:
-	@mkdir -p /home/aouchaad/data
-	@mkdir -p /home/aouchaad/data/wordpress_db
-	@mkdir -p /home/aouchaad/data/wordpress_html
+	bash set.sh
 
 up:
 	@docker-compose up -d --build
@@ -15,6 +13,12 @@ down:
 
 clean:
 	@docker-compose down -v
-	@docker volume rm -f /home/aouchaad/data/wordpress_db /home/aouchaad/data/wordpress_html
+	@docker volume rm -f ./data/wordpress ./data/mariadb
+
+clean_all: clean
+	@docker rm -f $(shell docker ps -aq) || true
+	@docker rmi -f $(shell docker images -q) || true
+	@docker volume rm $(shell docker volume ls -q) || true
+	@docker network prune  || true
 
 re: clean all

@@ -1,24 +1,19 @@
 FROM  debian:12.5
 
-RUN apt-get update && apt-get install -y mariadb-server
+RUN apt-get update 
+RUN apt-get install -y mariadb-server
 
-RUN mkdir -p /run/mysqld && chmod 777 /run/mysqld
+RUN mkdir -p /run/mysqld && chown -R mysql:mysql /run/mysqld && chmod 777 /run/mysqld
 
-RUN mysql_install_db --user=mysql --ldata=/var/lib/mysql
+# RUN mysql_install_db --user=mysql --ldata=/var/lib/mysql
 
-# mysql_install_db --user=mysql --ldata=/var/lib/mysql
-# mysql.user table already exists!
-# Run mysql_upgrade, not mysql_install_db
-
-COPY init_db.sh /home
+COPY ./tools/init_db.sh /home
 
 RUN chmod +x /home/init_db.sh
 
 ENTRYPOINT ["sh", "/home/init_db.sh"]
 
-EXPOSE 3306
-
-CMD ["mysqld", "-uroot"]
+CMD ["mariadbd", "--user=mysql", "--bind-address=0.0.0.0"]
 
 
 # FROM alpine:3.18

@@ -3,22 +3,14 @@ FROM debian:12.5
 #install nginx and openssl
 RUN apt-get update && apt-get install -y nginx openssl
 
-#creat derectory for nginx
-RUN mkdir -p /run/nginx
-
-#remove nginx default configurations
-RUN rm -f /etc/nginx/conf.d/*
 
 #copy nginx configuration file
 COPY mynginx.conf /etc/nginx/nginx.conf
 
-#copy ssl certificate to nginx certs folder
-COPY certificate.pem /etc/nginx/certs/server.pem
-
-#copy ssl private key to nginx private folder
-COPY private-key.pem /etc/nginx/private/server.pem
+RUN mkdir /etc/nginx/ssl && \
+    openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+    -keyout /etc/nginx/ssl/aouchaad.key \
+    -out /etc/nginx/ssl/aouchaad.crt  \
+    -subj "/C=MA/L=Tetouan/O=42/OU=1337 MED/CN=aouchaad.42.fr"
 
 CMD ["nginx", "-g", "daemon off;"]
-
-#expose port
-EXPOSE 443

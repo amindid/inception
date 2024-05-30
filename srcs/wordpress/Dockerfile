@@ -1,16 +1,16 @@
 FROM debian:12.5
 
-RUN apt update && apt install -y \
-	php-fpm \
-	php-mysql \
-	php-curl \
-	wget \
-	unzip
+RUN apt-get update && apt-get install -y php-mysql
 
-RUN mkdir -p /var/www/html && \
-	cd /var/www/html && \
-	wget https://wordpress.org/latest.zip && \
-	unzip latest.zip && \
-	mv wordpress/* . && \
-	rmdir wordpress && \
-	rm latest.zip
+RUN apt-get update && \
+    apt-get install -y php8.2-cli \
+    php8.2 \
+    php8.2-fpm \
+    php8.2-mysql \
+    curl 
+
+COPY /tools/script.sh .
+
+RUN chmod +x script.sh
+
+CMD [ "sh", "script.sh" ]
