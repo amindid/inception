@@ -9,7 +9,7 @@ RUN apt-get update && \
     php8.2-mysql \
     curl 
 
-COPY /tools/script.sh .
+COPY ./tools/script.sh .
 
 RUN chmod +x script.sh
 

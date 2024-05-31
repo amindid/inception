@@ -19,7 +19,7 @@ wp config create --dbname=${MYSQL_DATABASE} --dbuser=${MYSQL_USER} --dbpass=${MY
 
 wp core install --url=${WEBSITE} --title=inception --admin_user=${ADMIN_USER} --admin_password=${ADMIN_PASS} --admin_email=${ADMIN_EMAIL} --allow-root
 
-wp user create ${USER_NAME} ${USER_EMAIL} --role=editor --user_pass=${USER_PASS} --allow-root
+wp user create $USER_NAME $USER_EMAIL --role=editor --user_pass=$USER_PASS --allow-root
 
 sed -i "s|listen = /run/php/php8.2-fpm.sock|listen = 0.0.0.0:9000|g" /etc/php/8.2/fpm/pool.d/www.conf
 

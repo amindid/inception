@@ -3,10 +3,10 @@
 all: setup up
 
 setup:
-	bash set.sh
+	bash ./tools/set.sh
 
 up:
-	@docker-compose up -d --build
+	@docker-compose -f ./srcs/docker-compose.yml up -d --build
 
 down:
 	@docker-compose down
