@@ -12,7 +12,7 @@ down:
 	@docker-compose down
 
 clean:
-	@docker-compose down -v
+	@docker-compose -f ./srcs/docker-compose.yml down -v
 	@docker volume rm -f ./data/wordpress ./data/mariadb
 
 clean_all: clean
@@ -21,4 +21,4 @@ clean_all: clean
 	@docker volume rm $(shell docker volume ls -q) || true
 	@docker network prune  || true
 
-re: clean all
+re: clean_all all
