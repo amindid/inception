@@ -26,12 +26,26 @@ services:
     networks:
       - inception
 
+  ftp-server:
+    image: ftp-server:1337
+    container_name: ftp-server
+    build:
+      context: ./requirements/bonus/FTP-server
+      dockerfile: Dockerfile
+    env_file:
+      - ./.env
+    volumes:
+      - wordpress:/var/www/html/wordpress
+    networks:
+      - inception
+
   wordpress:
     image: wordpress:1337
     container_name: wordpress
     depends_on:
       - mariadb
       - redis-cache
+      - ftp-server
     build:
       context: ./srcs/requirements/wordpress
       dockerfile: Dockerfile
@@ -49,6 +63,7 @@ services:
       - mariadb
       - wordpress
       - redis-cache
+      - ftp-server
     volumes:
       - wordpress:/var/www/html/wordpress
     build:
