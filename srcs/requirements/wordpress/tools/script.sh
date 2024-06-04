@@ -2,7 +2,9 @@
 
 mkdir -p /var/www/html/wordpress
 chmod -R 777 /var/www/html/wordpress
-chown -R www-data:www-data /var/www/html/wordpress
+adduser --disabled-password --gecos "" $SYSUSER
+echo "$SYSUSER:$SYSUSERPASS" | chpasswd
+chown -R $SYSUSER:$SYSUSER /var/www/html/wordpress
 
 cd /var/www/html/wordpress
 
@@ -28,6 +30,11 @@ wp config set protected-mode no --allow-root
 wp plugin update --all --allow-root
 wp plugin install redis-cache --activate --allow-root
 wp redis enable --allow-root
+
+# wp config set FTP_HOST ftp-server --allow-root
+# wp config set FTP_USER $FTPUSER --allow-root
+# wp config set FTP_PASS $FTPUSRPASS --allow-root
+# wp config set FTP_BASE /var/www/html --allow-root
 
 sed -i "s|listen = /run/php/php8.2-fpm.sock|listen = 0.0.0.0:9000|g" /etc/php/8.2/fpm/pool.d/www.conf
 
