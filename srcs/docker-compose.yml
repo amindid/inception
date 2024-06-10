@@ -39,6 +39,22 @@ services:
     networks:
       - inception
 
+  website:
+    image: website:1337
+    container_name: website
+    build:
+      context: ./srcs/requirements/bonus/website
+      dockerfile: Dockerfile
+    env_file:
+      - ./.env
+    volumes:
+      - website:/var/www/html
+    ports:
+      - "8080:80"
+    networks:
+      - inception
+    
+
   wordpress:
     image: wordpress:1337
     container_name: wordpress
@@ -104,3 +120,9 @@ volumes:
       type: none
       o : bind
       device : $HOME/data/wordpress/
+  website:
+    name: website
+    driver_opts:
+      type: none
+      o : bind
+      device : $HOME/data/website/
