@@ -6,13 +6,13 @@ setup:
 	bash ./tools/set.sh
 
 up:
-	@docker-compose -f ./srcs/docker-compose.yml up -d --build
+	@docker compose -f ./srcs/docker-compose.yml up -d --build
 
 down:
-	@docker-compose down
+	@docker compose down
 
 clean:
-	@docker-compose -f ./srcs/docker-compose.yml down -v
+	@docker compose -f ./srcs/docker-compose.yml down -v
 	@docker volume rm -f ./data/wordpress ./data/mariadb ./data/website
 
 clean_all: clean

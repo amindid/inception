@@ -23,13 +23,13 @@ wp core install --url=${WEBSITE} --title=inception --admin_user=${ADMIN_USER} --
 
 wp user create $USER_NAME $USER_EMAIL --role=editor --user_pass=$USER_PASS --allow-root
 
-# wp config set WP_REDIS_HOST redis-cache --allow-root
-# wp config set WP_REDIS_PORT 6379 --allow-root
-# wp config set WP_CACHE true --allow-root
-# wp config set protected-mode no --allow-root
-# wp plugin update --all --allow-root
-# wp plugin install redis-cache --activate --allow-root
-# wp redis enable --allow-root
+wp config set WP_REDIS_HOST redis-cache --allow-root
+wp config set WP_REDIS_PORT 6379 --allow-root
+wp config set WP_CACHE true --allow-root
+wp config set protected-mode no --allow-root
+wp plugin update --all --allow-root
+wp plugin install redis-cache --activate --allow-root
+wp redis enable --allow-root
 
 
 sed -i "s|listen = /run/php/php8.2-fpm.sock|listen = 0.0.0.0:9000|g" /etc/php/8.2/fpm/pool.d/www.conf

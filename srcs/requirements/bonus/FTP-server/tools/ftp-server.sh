@@ -13,10 +13,6 @@ if [ ! -d "/var/run/vsftpd/empty" ]; then
 	sed -i "s+#chroot_list_file=/etc/vsftpd.chroot_list+chroot_list_file=/etc/vsftpd.chroot_list+" /etc/vsftpd.conf
 	sed -i 's/#ftpd_banner=Welcome to blah FTP service./ftpd_banner=Welcome to amine FTP service./' /etc/vsftpd.conf
 
-# mkdir -p /home/$FTPUSER/wordpress
-# chown nobody:nogroup /home/$FTPUSER/wordpress
-# chmod a-w /home/$FTPUSER/wordpress
-
 	mkdir -p /var/www/html/wordpress
 	chmod -R 777 /var/www/html/wordpress
 	usermod -d /var/www/html/wordpress $SYSUSER
