@@ -2,7 +2,10 @@
 if [ ! -d "/var/run/vsftpd/empty" ]; then
 	adduser --disabled-password --gecos "" $SYSUSER
 	echo "$SYSUSER:$SYSUSERPASS" | chpasswd
+
+	#creat vsftpd.chroot_list to list users to be chrooted
 	touch /etc/vsftpd.chroot_list;
+	#add SYSUSER to chroot list
 	echo "$SYSUSER" | tee -a /etc/vsftpd.chroot_list
 	chmod 777 /home/$SYSUSER
 	mkdir -p /var/run/vsftpd/empty
@@ -17,7 +20,6 @@ if [ ! -d "/var/run/vsftpd/empty" ]; then
 	chmod -R 777 /var/www/html/wordpress
 	usermod -d /var/www/html/wordpress $SYSUSER
 	chown -R $SYSUSER:$SYSUSER /var/www/html/wordpress
-	echo "finish script"
 fi
 
 exec "$@"

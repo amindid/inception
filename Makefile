@@ -1,4 +1,4 @@
-.PHONY: all setup up down clean
+.PHONY: all setup up down clean clean_all re
 
 all: setup up
 
@@ -9,17 +9,15 @@ up:
 	@docker compose -f ./srcs/docker-compose.yml up -d --build
 
 down:
-	@docker compose down
+	@docker compose -f ./srcs/docker-compose.yml down
 
 clean:
 	@docker compose -f ./srcs/docker-compose.yml down -v
-	@docker volume rm -f ./data/wordpress ./data/mariadb ./data/website
+	@docker volume rm -f ./data/wordpress ./data/mariadb
 
 clean_all: clean
-	@docker rm -f $(shell docker ps -aq) || true
-	@docker rmi -f $(shell docker images -q) || true
-	@docker volume rm $(shell docker volume ls -q) || true
-	@docker network prune  || true
-	@sudo rm -rf ~/data/*
+	@docker system prune -af
 
-re: clean_all all
+reset: clean_all all
+
+re: down all
